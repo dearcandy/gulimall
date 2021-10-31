@@ -23,7 +23,7 @@ public class BrandEntity implements Serializable {
 	 * 品牌id
 	 */
 	@TableId
-	private Long id;
+	private Long brandId;
 	/**
 	 * 品牌名
 	 */
@@ -35,7 +35,7 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 显示状态[0-不显示；1-显示]
 	 */
-	private Integer status;
+	private Integer showStatus;
 	/**
 	 * 检索首字母
 	 */
@@ -47,6 +47,6 @@ public class BrandEntity implements Serializable {
 	/**
 	 * 备注
 	 */
-	private String remark;
+	private String descript;
 
 }
