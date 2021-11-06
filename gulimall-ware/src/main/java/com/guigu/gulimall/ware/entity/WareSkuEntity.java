@@ -12,7 +12,7 @@ import lombok.Data;
  * 
  * @author dear_candy
  * @email dearcandy@gmail.com
- * @date 2021-07-21 18:05:01
+ * @date 2021-11-06 14:55:29
  */
 @Data
 @TableName("wms_ware_sku")
@@ -44,9 +44,5 @@ public class WareSkuEntity implements Serializable {
 	 * 锁定库存
 	 */
 	private Integer stockLocked;
-	/**
-	 * 销量
-	 */
-	private Long sales;
 
 }

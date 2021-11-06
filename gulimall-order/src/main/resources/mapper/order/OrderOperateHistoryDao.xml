@@ -10,7 +10,7 @@
         <result property="operateMan" column="operate_man"/>
         <result property="createTime" column="create_time"/>
         <result property="orderStatus" column="order_status"/>
-        <result property="remark" column="remark"/>
+        <result property="note" column="note"/>
     </resultMap>
 
 

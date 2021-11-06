@@ -12,7 +12,7 @@ import lombok.Data;
  * 
  * @author dear_candy
  * @email dearcandy@gmail.com
- * @date 2021-07-21 14:44:23
+ * @date 2021-11-06 14:16:00
  */
 @Data
 @TableName("pms_category")
@@ -23,7 +23,7 @@ public class CategoryEntity implements Serializable {
 	 * 分类id
 	 */
 	@TableId
-	private Long id;
+	private Long catId;
 	/**
 	 * 分类名称
 	 */
@@ -31,11 +31,15 @@ public class CategoryEntity implements Serializable {
 	/**
 	 * 父分类id
 	 */
-	private Long parentId;
+	private Long parentCid;
+	/**
+	 * 层级
+	 */
+	private Integer catLevel;
 	/**
 	 * 是否显示[0-不显示，1显示]
 	 */
-	private Integer status;
+	private Integer showStatus;
 	/**
 	 * 排序
 	 */
@@ -47,6 +51,10 @@ public class CategoryEntity implements Serializable {
 	/**
 	 * 计量单位
 	 */
-	private String unit;
+	private String productUnit;
+	/**
+	 * 商品数量
+	 */
+	private Integer productCount;
 
 }

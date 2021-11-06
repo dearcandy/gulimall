@@ -22,7 +22,7 @@ import com.guigu.gulimall.common.utils.R;
  *
  * @author dear_candy
  * @email dearcandy@gmail.com
- * @date 2021-07-21 15:31:14
+ * @date 2021-11-06 14:16:01
  */
 @RestController
 @RequestMapping("product/attr")
@@ -44,9 +44,9 @@ public class AttrController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id){
-		AttrEntity attr = attrService.getById(id);
+    @RequestMapping("/info/{attrId}")
+    public R info(@PathVariable("attrId") Long attrId){
+		AttrEntity attr = attrService.getById(attrId);
 
         return R.ok().put("attr", attr);
     }
@@ -75,8 +75,8 @@ public class AttrController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids){
-		attrService.removeByIds(Arrays.asList(ids));
+    public R delete(@RequestBody Long[] attrIds){
+		attrService.removeByIds(Arrays.asList(attrIds));
 
         return R.ok();
     }

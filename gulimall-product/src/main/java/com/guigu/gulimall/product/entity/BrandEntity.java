@@ -12,7 +12,7 @@ import lombok.Data;
  * 
  * @author dear_candy
  * @email dearcandy@gmail.com
- * @date 2021-07-21 14:44:23
+ * @date 2021-11-06 14:16:01
  */
 @Data
 @TableName("pms_brand")
@@ -29,9 +29,13 @@ public class BrandEntity implements Serializable {
 	 */
 	private String name;
 	/**
-	 * 品牌logo
+	 * 品牌logo地址
 	 */
 	private String logo;
+	/**
+	 * 介绍
+	 */
+	private String descript;
 	/**
 	 * 显示状态[0-不显示；1-显示]
 	 */
@@ -44,9 +48,5 @@ public class BrandEntity implements Serializable {
 	 * 排序
 	 */
 	private Integer sort;
-	/**
-	 * 备注
-	 */
-	private String descript;
 
 }

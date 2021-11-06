@@ -6,11 +6,11 @@
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.guigu.gulimall.order.entity.OrderEntity" id="orderMap">
         <result property="id" column="id"/>
-        <result property="userId" column="user_id"/>
+        <result property="memberId" column="member_id"/>
         <result property="orderSn" column="order_sn"/>
         <result property="couponId" column="coupon_id"/>
         <result property="createTime" column="create_time"/>
-        <result property="username" column="username"/>
+        <result property="memberUsername" column="member_username"/>
         <result property="totalAmount" column="total_amount"/>
         <result property="payAmount" column="pay_amount"/>
         <result property="freightAmount" column="freight_amount"/>
@@ -37,7 +37,8 @@
         <result property="receiverProvince" column="receiver_province"/>
         <result property="receiverCity" column="receiver_city"/>
         <result property="receiverRegion" column="receiver_region"/>
-        <result property="receiverAddress" column="receiver_address"/>
+        <result property="receiverDetailAddress" column="receiver_detail_address"/>
+        <result property="note" column="note"/>
         <result property="confirmStatus" column="confirm_status"/>
         <result property="deleteStatus" column="delete_status"/>
         <result property="useIntegration" column="use_integration"/>
@@ -46,7 +47,6 @@
         <result property="receiveTime" column="receive_time"/>
         <result property="commentTime" column="comment_time"/>
         <result property="modifyTime" column="modify_time"/>
-        <result property="remark" column="remark"/>
     </resultMap>
 
 

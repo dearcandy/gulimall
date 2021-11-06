@@ -22,7 +22,7 @@ import com.guigu.gulimall.common.utils.R;
  *
  * @author dear_candy
  * @email dearcandy@gmail.com
- * @date 2021-07-21 18:05:01
+ * @date 2021-11-06 14:55:29
  */
 @RestController
 @RequestMapping("ware/waresku")

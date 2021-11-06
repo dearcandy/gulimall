@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient("gulimall-coupon")
 public interface CouponFeignService {
 
+    /**
+     * 得到一个R对象
+     * @return R 统一响应
+     */
     @RequestMapping("/coupon/coupon/member/list")
-    R memberCoupons();//得到一个R对象
+    R memberCoupons();
 }

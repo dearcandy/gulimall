@@ -22,7 +22,7 @@ import com.guigu.gulimall.common.utils.R;
  *
  * @author dear_candy
  * @email dearcandy@gmail.com
- * @date 2021-07-21 15:31:14
+ * @date 2021-11-06 14:16:01
  */
 @RestController
 @RequestMapping("product/brand")
@@ -44,9 +44,9 @@ public class BrandController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id){
-		BrandEntity brand = brandService.getById(id);
+    @RequestMapping("/info/{brandId}")
+    public R info(@PathVariable("brandId") Long brandId){
+		BrandEntity brand = brandService.getById(brandId);
 
         return R.ok().put("brand", brand);
     }
@@ -75,8 +75,8 @@ public class BrandController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids){
-		brandService.removeByIds(Arrays.asList(ids));
+    public R delete(@RequestBody Long[] brandIds){
+		brandService.removeByIds(Arrays.asList(brandIds));
 
         return R.ok();
     }
