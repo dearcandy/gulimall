@@ -3,7 +3,6 @@ package com.guigu.gulimall.coupon.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,20 +16,20 @@ import com.guigu.gulimall.coupon.service.CouponService;
 import com.guigu.gulimall.common.utils.PageUtils;
 import com.guigu.gulimall.common.utils.R;
 
+import javax.annotation.Resource;
 
 
 /**
  * 优惠券信息
  *
  * @author dear_candy
- * @email dearcandy@gmail.com
  * @date 2021-07-21 18:13:32
  */
 @RefreshScope
 @RestController
 @RequestMapping("coupon/coupon")
 public class CouponController {
-    @Autowired
+    @Resource
     private CouponService couponService;
 
     @Value("${coupon.user.name}")
