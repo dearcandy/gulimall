@@ -1,43 +1,39 @@
 package com.guigu.gulimall.product.controller;
 
 import java.util.Arrays;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.guigu.gulimall.product.entity.CategoryEntity;
 import com.guigu.gulimall.product.service.CategoryService;
-import com.guigu.gulimall.common.utils.PageUtils;
 import com.guigu.gulimall.common.utils.R;
-
+import javax.annotation.Resource;
 
 
 /**
  * 商品三级分类
- *
  * @author dear_candy
- * @email dearcandy@gmail.com
  * @date 2021-11-06 14:16:00
  */
 @RestController
 @RequestMapping("product/category")
 public class CategoryController {
-    @Autowired
+
+    @Resource
     private CategoryService categoryService;
 
-    /**
-     * 列表
-     */
-    @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryService.queryPage(params);
 
-        return R.ok().put("page", page);
+    /**
+     * 查询所有分类-树形结构
+     * @return R
+     */
+    @RequestMapping("/list/tree")
+    public R list(){
+        List<CategoryEntity> entityList = categoryService.listWithTree();
+
+        return R.ok().put("data", entityList);
     }
 
 
