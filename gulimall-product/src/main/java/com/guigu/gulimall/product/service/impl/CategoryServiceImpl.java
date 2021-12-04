@@ -1,5 +1,6 @@
 package com.guigu.gulimall.product.service.impl;
 
+import com.guigu.gulimall.product.service.CategoryBrandRelationService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -14,6 +15,9 @@ import com.guigu.gulimall.common.utils.Query;
 import com.guigu.gulimall.product.dao.CategoryDao;
 import com.guigu.gulimall.product.entity.CategoryEntity;
 import com.guigu.gulimall.product.service.CategoryService;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -21,6 +25,9 @@ import com.guigu.gulimall.product.service.CategoryService;
  */
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+
+    @Resource
+    private CategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -57,6 +64,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         Collections.reverse(parentPath);
 
         return parentPath.toArray(new Long[parentPath.size()]);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        // 更新关联表
+        categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
     }
 
     /**
