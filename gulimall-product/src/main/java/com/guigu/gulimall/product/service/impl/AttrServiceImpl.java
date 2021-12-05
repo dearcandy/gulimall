@@ -1,5 +1,6 @@
 package com.guigu.gulimall.product.service.impl;
 
+import com.guigu.gulimall.common.constant.ProductConstant;
 import com.guigu.gulimall.product.dao.AttrAttrgroupRelationDao;
 import com.guigu.gulimall.product.dao.AttrGroupDao;
 import com.guigu.gulimall.product.dao.CategoryDao;
@@ -61,15 +62,19 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         BeanUtils.copyProperties(attrVO, attrEntity);
         this.save(attrEntity);
         // 保存关联信息
-        AttrAttrgroupRelationEntity relationEntity = new AttrAttrgroupRelationEntity();
-        relationEntity.setAttrGroupId(attrVO.getAttrGroupId());
-        relationEntity.setAttrId(attrEntity.getAttrId());
-        attrAttrgroupRelationDao.insert(relationEntity);
+        if(attrVO.getAttrType() == ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode()){
+            AttrAttrgroupRelationEntity relationEntity = new AttrAttrgroupRelationEntity();
+            relationEntity.setAttrGroupId(attrVO.getAttrGroupId());
+            relationEntity.setAttrId(attrEntity.getAttrId());
+            attrAttrgroupRelationDao.insert(relationEntity);
+        }
     }
 
     @Override
-    public PageUtils queryBaseAttrpage(Map<String, Object> params, Long catelogId) {
-        QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
+    public PageUtils queryBaseAttrpage(Map<String, Object> params, Long catelogId, String type) {
+        QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<AttrEntity>()
+                .eq("attr_type", "base".equalsIgnoreCase(type)?ProductConstant.AttrEnum.ATTR_TYPE_BASE.getCode()
+                        :ProductConstant.AttrEnum.ATTR_TYPE_SALE.getCode());
 
         if (catelogId != 0){
             queryWrapper.eq("catelog_id", catelogId);
@@ -91,17 +96,17 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
             AttrResponseVO attrResponseVO = new AttrResponseVO();
             BeanUtils.copyProperties(attrEntity, attrResponseVO);
             // 设置分类和分组的名字
-
-            // 获取属性和属性分组关系
-            AttrAttrgroupRelationEntity relationEntity = attrAttrgroupRelationDao.selectOne(
-                    new QueryWrapper<AttrAttrgroupRelationEntity>()
-                            .eq("attr_id", attrEntity.getAttrId()));
-            if (relationEntity != null) {
-                // 获取分组信息
-                AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(relationEntity.getAttrGroupId());
-                attrResponseVO.setGroupName(attrGroupEntity.getAttrGroupName());
+            if ("base".equalsIgnoreCase(type)){
+                // 获取属性和属性分组关系
+                AttrAttrgroupRelationEntity relationEntity = attrAttrgroupRelationDao.selectOne(
+                        new QueryWrapper<AttrAttrgroupRelationEntity>()
+                                .eq("attr_id", attrEntity.getAttrId()));
+                if (relationEntity != null) {
+                    // 获取分组信息
+                    AttrGroupEntity attrGroupEntity = attrGroupDao.selectById(relationEntity.getAttrGroupId());
+                    attrResponseVO.setGroupName(attrGroupEntity.getAttrGroupName());
+                }
             }
-
             // 获取分类信息
             CategoryEntity categoryEntity = categoryDao.selectById(attrEntity.getCatelogId());
             if (categoryEntity != null) {
