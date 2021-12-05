@@ -130,7 +130,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
      * @return 属性集合
      */
     @Override
-    public List<AttrEntity> getRelationAttr(String attrGroupId) {
+    public List<AttrEntity> getRelationAttr(Long attrGroupId) {
         // 根据分组ID在关系表中获取属性ID集合
         List<AttrAttrgroupRelationEntity> entities = relationDao.selectList(
                 new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrGroupId));

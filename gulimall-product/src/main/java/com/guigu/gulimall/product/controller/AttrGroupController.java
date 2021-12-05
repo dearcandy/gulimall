@@ -10,6 +10,7 @@ import com.guigu.gulimall.product.service.AttrAttrgroupRelationService;
 import com.guigu.gulimall.product.service.AttrService;
 import com.guigu.gulimall.product.service.CategoryService;
 import com.guigu.gulimall.product.vo.AttrGroupRelationVo;
+import com.guigu.gulimall.product.vo.AttrGroupWithAttrsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,13 +41,25 @@ public class AttrGroupController {
     @Resource
     private AttrAttrgroupRelationService attrAttrgroupRelationService;
 
+
+    /**
+     * 获取分类下属性分组信息以及所有属性信息
+     * @param catlogId 分类ID
+     * @return 分组信息以及所有属性信息
+     */
+    @GetMapping("/{catlogId}/withattr")
+    public R getAttrGroupWithAttrs(@PathVariable("catlogId") Long catlogId){
+        List<AttrGroupWithAttrsVO> vos = attrGroupService.getAttrGroupWithAttrsByCatlogId(catlogId);
+        return R.ok().put("data", vos);
+    }
+
     /**
      * 根据分组ID找到属性分组关联的所有属性
      * @param attrGroupId
      * @return
      */
     @GetMapping("/{attrGroupId}/attr/relation")
-    public R attrRelation(@PathVariable("attrGroupId") String attrGroupId){
+    public R attrRelation(@PathVariable("attrGroupId") Long attrGroupId){
         List<AttrEntity> attrEntityList = attrService.getRelationAttr(attrGroupId);
         return R.ok().put("data", attrEntityList);
     }

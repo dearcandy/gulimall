@@ -11,13 +11,13 @@ import lombok.Data;
 /**
  * 秒杀活动商品关联
  * 
- * @author dear_candy
- * @email dearcandy@gmail.com
- * @date 2021-07-21 18:13:32
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-08 09:36:40
  */
 @Data
-@TableName("sms_seckill_sku")
-public class SeckillSkuEntity implements Serializable {
+@TableName("sms_seckill_sku_relation")
+public class SeckillSkuRelationEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**

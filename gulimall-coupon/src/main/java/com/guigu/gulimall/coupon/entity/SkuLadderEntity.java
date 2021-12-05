@@ -11,9 +11,9 @@ import lombok.Data;
 /**
  * 商品阶梯价格
  * 
- * @author dear_candy
- * @email dearcandy@gmail.com
- * @date 2021-07-21 18:13:32
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-08 09:36:40
  */
 @Data
 @TableName("sms_sku_ladder")
@@ -37,6 +37,10 @@ public class SkuLadderEntity implements Serializable {
 	 * 打几折
 	 */
 	private BigDecimal discount;
+	/**
+	 * 折后价
+	 */
+	private BigDecimal price;
 	/**
 	 * 是否叠加其他优惠[0-不可叠加，1-可叠加]
 	 */

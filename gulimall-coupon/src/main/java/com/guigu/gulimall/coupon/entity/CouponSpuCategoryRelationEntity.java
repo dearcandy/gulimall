@@ -8,15 +8,15 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 优惠券与产品关联
+ * 优惠券分类关联
  * 
- * @author dear_candy
- * @email dearcandy@gmail.com
- * @date 2021-07-21 18:13:32
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-08 09:36:40
  */
 @Data
-@TableName("sms_coupon_spu")
-public class CouponSpuEntity implements Serializable {
+@TableName("sms_coupon_spu_category_relation")
+public class CouponSpuCategoryRelationEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -29,12 +29,12 @@ public class CouponSpuEntity implements Serializable {
 	 */
 	private Long couponId;
 	/**
-	 * spu_id
+	 * 产品分类id
 	 */
-	private Long spuId;
+	private Long categoryId;
 	/**
-	 * spu_name
+	 * 产品分类名称
 	 */
-	private String spuName;
+	private String categoryName;
 
 }

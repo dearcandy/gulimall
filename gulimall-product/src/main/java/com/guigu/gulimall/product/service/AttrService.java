@@ -29,7 +29,7 @@ public interface AttrService extends IService<AttrEntity> {
      * @param attrGroupId
      * @return
      */
-    List<AttrEntity> getRelationAttr(String attrGroupId);
+    List<AttrEntity> getRelationAttr(Long attrGroupId);
 
     /**
      * 删除属性分组和属性的关联关系

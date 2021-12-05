@@ -3,6 +3,10 @@ package com.guigu.gulimall.coupon.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.guigu.gulimall.common.utils.PageUtils;
+import com.guigu.gulimall.common.utils.R;
+import com.guigu.gulimall.coupon.entity.CouponHistoryEntity;
+import com.guigu.gulimall.coupon.service.CouponHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,19 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.guigu.gulimall.coupon.entity.CouponHistoryEntity;
-import com.guigu.gulimall.coupon.service.CouponHistoryService;
-import com.guigu.gulimall.common.utils.PageUtils;
-import com.guigu.gulimall.common.utils.R;
-
 
 
 /**
  * 优惠券领取历史记录
  *
- * @author dear_candy
- * @email dearcandy@gmail.com
- * @date 2021-07-21 18:13:32
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-08 09:36:40
  */
 @RestController
 @RequestMapping("coupon/couponhistory")
@@ -34,6 +33,7 @@ public class CouponHistoryController {
      * 列表
      */
     @RequestMapping("/list")
+    //@RequiresPermissions("coupon:couponhistory:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = couponHistoryService.queryPage(params);
 
@@ -45,6 +45,7 @@ public class CouponHistoryController {
      * 信息
      */
     @RequestMapping("/info/{id}")
+    //@RequiresPermissions("coupon:couponhistory:info")
     public R info(@PathVariable("id") Long id){
 		CouponHistoryEntity couponHistory = couponHistoryService.getById(id);
 
@@ -55,6 +56,7 @@ public class CouponHistoryController {
      * 保存
      */
     @RequestMapping("/save")
+    //@RequiresPermissions("coupon:couponhistory:save")
     public R save(@RequestBody CouponHistoryEntity couponHistory){
 		couponHistoryService.save(couponHistory);
 
@@ -65,6 +67,7 @@ public class CouponHistoryController {
      * 修改
      */
     @RequestMapping("/update")
+    //@RequiresPermissions("coupon:couponhistory:update")
     public R update(@RequestBody CouponHistoryEntity couponHistory){
 		couponHistoryService.updateById(couponHistory);
 
@@ -75,6 +78,7 @@ public class CouponHistoryController {
      * 删除
      */
     @RequestMapping("/delete")
+    //@RequiresPermissions("coupon:couponhistory:delete")
     public R delete(@RequestBody Long[] ids){
 		couponHistoryService.removeByIds(Arrays.asList(ids));
 

@@ -3,6 +3,11 @@ package com.guigu.gulimall.coupon.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.guigu.gulimall.common.utils.PageUtils;
+import com.guigu.gulimall.common.utils.R;
+import com.guigu.gulimall.coupon.entity.CouponEntity;
+import com.guigu.gulimall.coupon.service.CouponService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,26 +16,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.guigu.gulimall.coupon.entity.CouponEntity;
-import com.guigu.gulimall.coupon.service.CouponService;
-import com.guigu.gulimall.common.utils.PageUtils;
-import com.guigu.gulimall.common.utils.R;
 
-import javax.annotation.Resource;
 
 
 /**
  * 优惠券信息
  *
- * @author dear_candy
- * @date 2021-07-21 18:13:32
+ * @author leifengyang
+ * @email leifengyang@gmail.com
+ * @date 2019-10-08 09:36:40
  */
 @RefreshScope
 @RestController
 @RequestMapping("coupon/coupon")
 public class CouponController {
-    @Resource
+    @Autowired
     private CouponService couponService;
+
 
     @Value("${coupon.user.name}")
     private String name;
@@ -39,23 +41,22 @@ public class CouponController {
 
     @RequestMapping("/test")
     public R test(){
+
         return R.ok().put("name",name).put("age",age);
     }
 
     @RequestMapping("/member/list")
-    public R memberCoupons(){
-        // 应该去数据库查用户对于的优惠券，但这个我们简化了，不去数据库查了，构造了一个优惠券给他返回
+    public R membercoupons(){
         CouponEntity couponEntity = new CouponEntity();
-        // 优惠券的名字
-        couponEntity.setCouponName("满100-10");
+        couponEntity.setCouponName("满100减10");
         return R.ok().put("coupons",Arrays.asList(couponEntity));
     }
-
 
     /**
      * 列表
      */
     @RequestMapping("/list")
+    //@RequiresPermissions("coupon:coupon:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = couponService.queryPage(params);
 
@@ -67,6 +68,7 @@ public class CouponController {
      * 信息
      */
     @RequestMapping("/info/{id}")
+    //@RequiresPermissions("coupon:coupon:info")
     public R info(@PathVariable("id") Long id){
 		CouponEntity coupon = couponService.getById(id);
 
@@ -77,6 +79,7 @@ public class CouponController {
      * 保存
      */
     @RequestMapping("/save")
+    //@RequiresPermissions("coupon:coupon:save")
     public R save(@RequestBody CouponEntity coupon){
 		couponService.save(coupon);
 
@@ -87,6 +90,7 @@ public class CouponController {
      * 修改
      */
     @RequestMapping("/update")
+    //@RequiresPermissions("coupon:coupon:update")
     public R update(@RequestBody CouponEntity coupon){
 		couponService.updateById(coupon);
 
@@ -97,6 +101,7 @@ public class CouponController {
      * 删除
      */
     @RequestMapping("/delete")
+    //@RequiresPermissions("coupon:coupon:delete")
     public R delete(@RequestBody Long[] ids){
 		couponService.removeByIds(Arrays.asList(ids));
 
