@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.guigu.gulimall.product.dao.AttrAttrgroupRelationDao;
 import com.guigu.gulimall.product.entity.AttrEntity;
+import com.guigu.gulimall.product.service.AttrAttrgroupRelationService;
 import com.guigu.gulimall.product.service.AttrService;
 import com.guigu.gulimall.product.service.CategoryService;
 import com.guigu.gulimall.product.vo.AttrGroupRelationVo;
@@ -35,6 +37,8 @@ public class AttrGroupController {
     private CategoryService categoryService;
     @Resource
     private AttrService attrService;
+    @Resource
+    private AttrAttrgroupRelationService attrAttrgroupRelationService;
 
     /**
      * 根据分组ID找到属性分组关联的所有属性
@@ -45,6 +49,23 @@ public class AttrGroupController {
     public R attrRelation(@PathVariable("attrGroupId") String attrGroupId){
         List<AttrEntity> attrEntityList = attrService.getRelationAttr(attrGroupId);
         return R.ok().put("data", attrEntityList);
+    }
+
+    // noattr/relation
+    @GetMapping("/{attrGroupId}/noattr/relation")
+    public R attrNoRelation(@PathVariable("attrGroupId") Long attrGroupId,
+                            @RequestParam Map<String, Object> params){
+        PageUtils page = attrService.getNoRelationAttr(attrGroupId,params);
+        return R.ok().put("page", page);
+    }
+
+    /**
+     * 新增关联关系
+     */
+    @PostMapping("/attr/relation")
+    public R addRelation(@RequestBody List<AttrGroupRelationVo> vos){
+        attrAttrgroupRelationService.saveBatch(vos);
+        return R.ok();
     }
 
     /**
