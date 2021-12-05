@@ -1,15 +1,15 @@
 package com.guigu.gulimall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.guigu.gulimall.product.entity.AttrEntity;
+import com.guigu.gulimall.product.service.AttrService;
 import com.guigu.gulimall.product.service.CategoryService;
+import com.guigu.gulimall.product.vo.AttrGroupRelationVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.guigu.gulimall.product.entity.AttrGroupEntity;
 import com.guigu.gulimall.product.service.AttrGroupService;
@@ -33,6 +33,19 @@ public class AttrGroupController {
     private AttrGroupService attrGroupService;
     @Resource
     private CategoryService categoryService;
+    @Resource
+    private AttrService attrService;
+
+    /**
+     * 根据分组ID找到属性分组关联的所有属性
+     * @param attrGroupId
+     * @return
+     */
+    @GetMapping("/{attrGroupId}/attr/relation")
+    public R attrRelation(@PathVariable("attrGroupId") String attrGroupId){
+        List<AttrEntity> attrEntityList = attrService.getRelationAttr(attrGroupId);
+        return R.ok().put("data", attrEntityList);
+    }
 
     /**
      * 列表
@@ -83,6 +96,18 @@ public class AttrGroupController {
     public R delete(@RequestBody Long[] attrGroupIds) {
         attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
 
+        return R.ok();
+    }
+
+
+    /**
+     * 删除属性分组和属性的关联关系
+     * @param vos
+     * @return
+     */
+    @PostMapping("/attr/relation/delete")
+    public R deleteAttrRelation(@RequestBody AttrGroupRelationVo[] vos){
+        attrService.deleteAttrRelation(vos);
         return R.ok();
     }
 

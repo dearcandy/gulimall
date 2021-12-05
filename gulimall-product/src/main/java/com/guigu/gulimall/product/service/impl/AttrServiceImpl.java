@@ -7,12 +7,15 @@ import com.guigu.gulimall.product.dao.CategoryDao;
 import com.guigu.gulimall.product.entity.AttrAttrgroupRelationEntity;
 import com.guigu.gulimall.product.entity.AttrGroupEntity;
 import com.guigu.gulimall.product.entity.CategoryEntity;
+import com.guigu.gulimall.product.vo.AttrGroupRelationVo;
 import com.guigu.gulimall.product.vo.AttrResponseVO;
 import com.guigu.gulimall.product.vo.AttrVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -118,6 +121,41 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
         pageUtils.setList(responseVOList);
         return pageUtils;
+    }
+
+    /**
+     * 根据分组ID找到属性分组关联的所有基本属性
+     * @param attrGroupId 分组ID
+     * @return 属性集合
+     */
+    @Override
+    public List<AttrEntity> getRelationAttr(String attrGroupId) {
+        // 根据分组ID在关系表中获取属性ID集合
+        List<AttrAttrgroupRelationEntity> entities = relationDao.selectList(
+                new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", attrGroupId));
+        List<Long> attrIds = entities.stream().map((attr) -> {
+            return attr.getAttrId();
+        }).collect(Collectors.toList());
+
+        // 根据属性ID集合获取对应实体
+        List<AttrEntity> attrEntities = (List<AttrEntity>) this.listByIds(attrIds);
+        return attrEntities;
+    }
+
+    /**
+     * 删除属性分组和属性的关联关系
+     * @param vos 属性ID和属性分组ID集合
+     */
+    @Override
+    public void deleteAttrRelation(AttrGroupRelationVo[] vos) {
+        // 构造关联关系实体集合
+        List<AttrAttrgroupRelationEntity> relationEntityList = Arrays.asList(vos).stream().map((item) -> {
+            AttrAttrgroupRelationEntity relationEntity = new AttrAttrgroupRelationEntity();
+            BeanUtils.copyProperties(item, relationEntity);
+            return relationEntity;
+        }).collect(Collectors.toList());
+        // 批量删除关联关系
+        relationDao.deleteBatchRelation(relationEntityList);
     }
 
 }

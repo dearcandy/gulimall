@@ -3,8 +3,10 @@ package com.guigu.gulimall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.guigu.gulimall.common.utils.PageUtils;
 import com.guigu.gulimall.product.entity.AttrEntity;
+import com.guigu.gulimall.product.vo.AttrGroupRelationVo;
 import com.guigu.gulimall.product.vo.AttrVO;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,5 +23,18 @@ public interface AttrService extends IService<AttrEntity> {
     void saveAttrVo(AttrVO attrVO);
 
     PageUtils queryBaseAttrpage(Map<String, Object> params, Long catelogId, String type);
+
+    /**
+     * 根据分组ID找到属性分组关联的所有属性
+     * @param attrGroupId
+     * @return
+     */
+    List<AttrEntity> getRelationAttr(String attrGroupId);
+
+    /**
+     * 删除属性分组和属性的关联关系
+     * @param vos 属性ID和属性分组ID集合
+     */
+    void deleteAttrRelation(AttrGroupRelationVo[] vos);
 }
 
