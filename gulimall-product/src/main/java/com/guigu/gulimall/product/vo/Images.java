@@ -1,12 +1,12 @@
 /**
-  * Copyright 2021 bejson.com 
+  * Copyright 2019 bejson.com 
   */
 package com.guigu.gulimall.product.vo;
 
 import lombok.Data;
 
 /**
- * Auto-generated: 2021-12-05 22:45:5
+ * Auto-generated: 2019-11-26 10:50:34
  *
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
@@ -16,4 +16,6 @@ public class Images {
 
     private String imgUrl;
     private int defaultImg;
+
+
 }

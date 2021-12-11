@@ -1,16 +1,10 @@
 package com.guigu.gulimall.product.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import lombok.Data;
 
-/**
- * @author: Trae.Liu
- * @create: 2021-12-05 01:25
- * @description:
- */
 @Data
-public class AttrVO {
-
+public class AttrVo {
     /**
      * 属性id
      */
@@ -23,6 +17,10 @@ public class AttrVO {
      * 是否需要检索[0-不需要，1-需要]
      */
     private Integer searchType;
+    /**
+     * 值类型[0-为单个值，1-可以选择多个值]
+     */
+    private Integer valueType;
     /**
      * 属性图标
      */
@@ -47,9 +45,6 @@ public class AttrVO {
      * 快速展示【是否展示在介绍上；0-否 1-是】，在sku中仍然可以调整
      */
     private Integer showDesc;
-    /**
-     * 分组ID
-     */
-    private Long attrGroupId;
 
+    private Long attrGroupId;
 }

@@ -3,6 +3,7 @@ package com.guigu.gulimall.coupon.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.guigu.gulimall.common.to.SkuReductionTo;
 import com.guigu.gulimall.common.utils.PageUtils;
 import com.guigu.gulimall.common.utils.R;
 import com.guigu.gulimall.coupon.entity.SkuFullReductionEntity;
@@ -27,6 +28,14 @@ public class SkuFullReductionController {
     private SkuFullReductionService skuFullReductionService;
 
 
+    /**
+     * 列表
+     */
+    @RequestMapping("/saveInfo")
+    public R saveInfo(@RequestBody SkuReductionTo reductionTo){
+        skuFullReductionService.saveSkuReduction(reductionTo);
+        return R.ok();
+    }
 
     /**
      * 列表

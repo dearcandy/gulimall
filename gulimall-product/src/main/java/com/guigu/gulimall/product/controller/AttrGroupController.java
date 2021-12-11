@@ -3,14 +3,12 @@ package com.guigu.gulimall.product.controller;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import com.guigu.gulimall.product.dao.AttrAttrgroupRelationDao;
 import com.guigu.gulimall.product.entity.AttrEntity;
 import com.guigu.gulimall.product.service.AttrAttrgroupRelationService;
 import com.guigu.gulimall.product.service.AttrService;
 import com.guigu.gulimall.product.service.CategoryService;
 import com.guigu.gulimall.product.vo.AttrGroupRelationVo;
-import com.guigu.gulimall.product.vo.AttrGroupWithAttrsVO;
+import com.guigu.gulimall.product.vo.AttrGroupWithAttrsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,7 +47,7 @@ public class AttrGroupController {
      */
     @GetMapping("/{catlogId}/withattr")
     public R getAttrGroupWithAttrs(@PathVariable("catlogId") Long catlogId){
-        List<AttrGroupWithAttrsVO> vos = attrGroupService.getAttrGroupWithAttrsByCatlogId(catlogId);
+        List<AttrGroupWithAttrsVo> vos = attrGroupService.getAttrGroupWithAttrsByCatlogId(catlogId);
         return R.ok().put("data", vos);
     }
 

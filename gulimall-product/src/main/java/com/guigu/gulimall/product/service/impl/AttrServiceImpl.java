@@ -8,14 +8,12 @@ import com.guigu.gulimall.product.entity.AttrAttrgroupRelationEntity;
 import com.guigu.gulimall.product.entity.AttrGroupEntity;
 import com.guigu.gulimall.product.entity.CategoryEntity;
 import com.guigu.gulimall.product.vo.AttrGroupRelationVo;
-import com.guigu.gulimall.product.vo.AttrResponseVO;
-import com.guigu.gulimall.product.vo.AttrVO;
+import com.guigu.gulimall.product.vo.AttrRespVo;
+import com.guigu.gulimall.product.vo.AttrVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -60,7 +58,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void saveAttrVo(AttrVO attrVO) {
+    public void saveAttrVo(AttrVo attrVO) {
         // 保存基本信息
         AttrEntity attrEntity = new AttrEntity();
         BeanUtils.copyProperties(attrVO, attrEntity);
@@ -96,8 +94,8 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         );
         PageUtils pageUtils = new PageUtils(page);
         List<AttrEntity> records = page.getRecords();
-        List<AttrResponseVO> responseVOList = records.stream().map((attrEntity -> {
-            AttrResponseVO attrResponseVO = new AttrResponseVO();
+        List<AttrRespVo> responseVOList = records.stream().map((attrEntity -> {
+            AttrRespVo attrResponseVO = new AttrRespVo();
             BeanUtils.copyProperties(attrEntity, attrResponseVO);
             // 设置分类和分组的名字
             if ("base".equalsIgnoreCase(type)){

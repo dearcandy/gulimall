@@ -3,7 +3,7 @@ package com.guigu.gulimall.product.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-import com.guigu.gulimall.product.vo.AttrVO;
+import com.guigu.gulimall.product.vo.AttrVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,7 +60,7 @@ public class AttrController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody AttrVO attrVO){
+    public R save(@RequestBody AttrVo attrVO){
 		attrService.saveAttrVo(attrVO);
 
         return R.ok();
