@@ -1,8 +1,10 @@
 package com.guigu.gulimall.ware.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
+import com.guigu.gulimall.ware.vo.MergeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +28,11 @@ public class PurchaseController {
     @Autowired
     private PurchaseService purchaseService;
 
-    // ware/purchase/unreceive/list
+    @PostMapping("/merge")
+    public R merge(@RequestBody MergeVo mergeVo){
+        purchaseService.mergePurchase(mergeVo);
+        return R.ok();
+    }
 
     @GetMapping("/unreceive/list")
     public R unReceiveList(@RequestParam Map<String, Object> params){
@@ -60,6 +66,8 @@ public class PurchaseController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody PurchaseEntity purchase){
+        purchase.setCreateTime(new Date());
+        purchase.setUpdateTime(new Date());
 		purchaseService.save(purchase);
 
         return R.ok();

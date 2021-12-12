@@ -3,6 +3,7 @@ package com.guigu.gulimall.ware.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.guigu.gulimall.common.utils.PageUtils;
 import com.guigu.gulimall.ware.entity.PurchaseEntity;
+import com.guigu.gulimall.ware.vo.MergeVo;
 
 import java.util.Map;
 
@@ -18,5 +19,7 @@ public interface PurchaseService extends IService<PurchaseEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     PageUtils queryPageunReceive(Map<String, Object> params);
+
+    void mergePurchase(MergeVo mergeVo);
 }
 
